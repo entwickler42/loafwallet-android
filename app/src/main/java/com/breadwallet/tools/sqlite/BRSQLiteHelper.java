@@ -38,8 +38,11 @@ public class BRSQLiteHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static BRSQLiteHelper getInstance(Context context) {
-        if (instance == null) instance = new BRSQLiteHelper(context);
+    public static synchronized BRSQLiteHelper getInstance(Context context) {
+        if (instance == null) {
+            // Use the application context to ensure that we don't leak an Activity's context
+            instance = new BRSQLiteHelper(context.getApplicationContext());
+        }
         return instance;
     }
 
