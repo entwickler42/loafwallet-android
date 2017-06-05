@@ -105,6 +105,25 @@ public class BRActivity extends Activity {
                 }
                 break;
 
+            case BRConstants.QR_SCANNER_REQUEST:
+                if (resultCode == Activity.RESULT_OK) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.e(TAG, "run: result got back!");
+                            String result = data.getStringExtra("result");
+                            if (BitcoinUrlHandler.isBitcoinUrl(result))
+                                BitcoinUrlHandler.processRequest(BRActivity.this, result);
+                            else if (BitcoinUrlHandler.isBitId(result))
+                                BitcoinUrlHandler.tryBitIdUri(BRActivity.this, result, null);
+                            else
+                                Log.e(TAG, "onActivityResult: not bitcoin address NOR bitID");
+                        }
+                    }, 500);
+
+                }
+                break;
+
             case BRConstants.PUT_PHRASE_NEW_WALLET_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     PostAuthenticationProcessor.getInstance().onCreateWalletAuth(this, true);

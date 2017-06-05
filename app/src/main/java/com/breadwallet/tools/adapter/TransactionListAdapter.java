@@ -138,7 +138,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         CharSequence timeSpan = DateUtils.getRelativeTimeSpanString(timeStamp, System.currentTimeMillis(), MINUTE_IN_MILLIS);
 
         convertView.timestamp.setText(timeSpan);
-
+        convertView.account.setText(item.getFirstTo());
     }
 
     public void filterBy(String query, boolean[] switches) {
@@ -208,7 +208,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
             account = (TextView) view.findViewById(R.id.account);
             confirmation = (TextView) view.findViewById(R.id.confirmation);
             timestamp = (TextView) view.findViewById(R.id.timestamp);
-            comment = (TextView) view.findViewById(R.id.comment);
+//            comment = (TextView) view.findViewById(R.id.comment);
         }
     }
 

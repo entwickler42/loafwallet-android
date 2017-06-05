@@ -15,7 +15,7 @@ import android.util.Log;
 import com.breadwallet.R;
 import com.breadwallet.presenter.activities.BreadActivity;
 import com.breadwallet.presenter.activities.PinActivity;
-import com.breadwallet.presenter.activities.ScanQRActivity;
+import com.breadwallet.presenter.activities.QRScannerActivity;
 import com.breadwallet.presenter.customviews.BRDialogView;
 import com.breadwallet.presenter.entities.TransactionListItem;
 import com.breadwallet.presenter.fragments.FragmentSignal;
@@ -151,8 +151,8 @@ public class BRAnimator {
                 }
             } else {
                 // Permission is granted, open camera
-                Intent intent = new Intent(app, ScanQRActivity.class);
-                app.startActivityForResult(intent, 123);
+                Intent intent = new Intent(app, QRScannerActivity.class);
+                app.startActivityForResult(intent, BRConstants.QR_SCANNER_REQUEST);
                 app.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
             }
         } catch (Exception e) {

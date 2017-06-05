@@ -7,8 +7,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
-import com.breadwallet.R;
-import com.breadwallet.tools.util.Utils;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -22,8 +20,6 @@ import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 
-import static android.R.attr.path;
-import static android.R.attr.width;
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
 

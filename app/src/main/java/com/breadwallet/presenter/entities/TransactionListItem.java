@@ -95,6 +95,10 @@ public class TransactionListItem {
         return to;
     }
 
+    public String getFirstTo() {
+        return to.length > 0 ? to[0]: "";
+    }
+
     public long getBalanceAfterTx() {
         return balanceAfterTx;
     }

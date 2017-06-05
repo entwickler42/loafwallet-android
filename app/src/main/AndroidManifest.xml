@@ -172,7 +172,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".presenter.activities.ScanQRActivity"
+            android:name=".presenter.activities.QRScannerActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
         </activity>

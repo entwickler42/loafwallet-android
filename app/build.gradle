@@ -7,7 +7,7 @@ model {
 
         defaultConfig {
             testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
-            applicationId = 'com.breadwallet'
+            applicationId = 'com.loafwallet'
             minSdkVersion.apiLevel = 23
             targetSdkVersion.apiLevel = 25
             versionCode = 41
@@ -15,23 +15,23 @@ model {
         }
 
         productFlavors.with {
-            create("bread") {
-                applicationId "com.breadwallet"
+            create("loaf") {
+                applicationId "com.loafwallet"
                 resValues.with {
                     create() {
                         type = "string"
                         name = "app_name"
-                        value = "ƀreadwallet"
+                        value = "loafwallet"
                     }
                 }
             }
             create("demo") {
-                applicationId "com.breaddemo"
+                applicationId "com.loafdemo"
                 resValues.with {
                     create() {
                         type = "string"
                         name = "app_name"
-                        value = "bread-demo"
+                        value = "loaf-demo"
                     }
                 }
             }
@@ -139,6 +139,7 @@ dependencies {
     compile 'com.google.firebase:firebase-crash:10.2.1'
     compile 'io.sigpipe:jbsdiff:1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.2'
     androidTestCompile 'com.android.support:support-annotations:25.3.1'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'

@@ -172,7 +172,7 @@ public class PostAuthenticationProcessor {
             rawSeed = KeyStoreManager.getKeyStorePhrase(app, BRConstants.PAY_REQUEST_CODE);
         } catch (BRKeystoreErrorException e) {
             if (authAsked) {
-                showBugAuthLoopErrorMessage((Activity) app);
+                //showBugAuthLoopErrorMessage((Activity) app);
                 Log.e(TAG, "onPublishTxAuth,!success && authAsked: " + e.getMessage());
             }
             e.printStackTrace();

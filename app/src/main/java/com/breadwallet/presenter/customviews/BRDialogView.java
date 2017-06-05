@@ -90,15 +90,9 @@ public class BRDialogView extends DialogFragment {
 
         builder.setView(view);
 //        builder.setPositiveButton()
-        builder.setOnDismissListener(dismissListener);
+//        builder.setOnDismissListener(dismissListener);
         // Create the AlertDialog object and return it
         return builder.create();
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
     }
 
     public void setTitle(String title) {
@@ -127,6 +121,13 @@ public class BRDialogView extends DialogFragment {
 
     public void setDismissListener(DialogInterface.OnDismissListener dismissListener) {
         this.dismissListener = dismissListener;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        if (dismissListener != null) {
+            this.dismissListener.onDismiss(dialog);
+        }
     }
 
     public void setIconRes(int iconRes) {

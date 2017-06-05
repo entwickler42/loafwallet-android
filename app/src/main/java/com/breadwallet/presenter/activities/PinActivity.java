@@ -157,9 +157,9 @@ public class PinActivity extends BRActivity {
                         }
                     } else {
                         // Permission is granted, open camera
-                        Intent intent = new Intent(app, ScanQRActivity.class);
-                        app.startActivityForResult(intent, 123);
-                        app.overridePendingTransition(R.anim.fade_up, 0);
+                        Intent intent = new Intent(app, QRScannerActivity.class);
+                        app.startActivityForResult(intent, BRConstants.QR_SCANNER_REQUEST);
+                        app.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
