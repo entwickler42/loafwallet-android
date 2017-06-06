@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -100,6 +101,18 @@ public class CurrencyFetchManager {
                         tmp.name = tmpObj.getString("name");
                         tmp.code = tmpObj.getString("code");
                         tmp.rate = (float) tmpObj.getDouble("rate");
+
+                        if (tmp.code.equalsIgnoreCase("USD")) {
+                            // Get Litecoin price
+                            JSONObject litecoinJson = getCryptonatorJSon(context);
+                            try {
+                                tmp.rate = BigDecimal.valueOf(litecoinJson.getJSONObject("ticker").getDouble("price")).floatValue();
+                                Log.e(TAG, "Litecoin rate = " + tmp.rate);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                         String selectedISO = SharedPreferencesManager.getIso(context);
 //                        Log.e(TAG,"selectedISO: " + selectedISO);
                         if (tmp.code.equalsIgnoreCase(selectedISO)) {
@@ -184,6 +197,17 @@ public class CurrencyFetchManager {
         }
     }
 
+    public static JSONObject getCryptonatorJSon(Activity activity) {
+        String jsonString = callURL(activity, "https://api.cryptonator.com/api/ticker/ltc-usd");
+        JSONObject obj = null;
+        if (jsonString == null) return null;
+        try {
+            obj = new JSONObject(jsonString);
+
+        } catch (JSONException ignored) {
+        }
+        return obj;
+    }
 
     public static JSONArray getJSonArray(Activity activity) {
         String jsonString = callURL(activity, "https://api.breadwallet.com/rates");
@@ -218,6 +242,7 @@ public class CurrencyFetchManager {
         return jsonArray;
     }
 
+    // TODO: get fee for Litecoin
     public static void updateFeePerKb(Activity activity) {
         String jsonString = callURL(activity, "https://api.breadwallet.com/fee-per-kb");
         if (jsonString == null || jsonString.isEmpty()) {
