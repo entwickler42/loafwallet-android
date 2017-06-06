@@ -86,7 +86,6 @@ public class FragmentSend extends Fragment {
     private BRKeyboard keyboard;
     private EditText addressEdit;
     private Button scan;
-    private Button paste;
     private Button send;
     private RecyclerView currencyRecycler;
     private EditText commentEdit;
@@ -112,7 +111,6 @@ public class FragmentSend extends Fragment {
         isoText = (TextView) rootView.findViewById(R.id.iso_text);
         addressEdit = (EditText) rootView.findViewById(R.id.address_edit);
         scan = (Button) rootView.findViewById(R.id.share_text);
-        paste = (Button) rootView.findViewById(R.id.paste_button);
         send = (Button) rootView.findViewById(R.id.send_button);
         commentEdit = (EditText) rootView.findViewById(R.id.comment_edit);
         currencyRecycler = (RecyclerView) rootView.findViewById(R.id.cur_spinner);
@@ -134,28 +132,16 @@ public class FragmentSend extends Fragment {
         return rootView;
     }
 
-    private void setListeners() {
-        paste.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeCurrencySelector();
-                if (!BRAnimator.isClickAllowed()) return;
-                SpringAnimator.springView(v);
-                String bitcoinUrl = BRClipboardManager.getClipboard(getActivity());
-                if (Utils.isNullOrEmpty(bitcoinUrl)) {
-                    showClipboardError();
-                    return;
-                }
-                String address = null;
+    private boolean validateBitcoinUrl(String bitcoinUrl) {
+        String address = null;
 
-                RequestObject obj = getRequestFromString(bitcoinUrl);
-
-                if (obj == null || obj.address == null) {
-                    showClipboardError();
-                    return;
-                }
-                address = obj.address;
-                final BRWalletManager wm = BRWalletManager.getInstance();
+        RequestObject obj = getRequestFromString(bitcoinUrl);
+        if (obj == null || obj.address == null) {
+            showClipboardError();
+            return false;
+        }
+        address = obj.address;
+        final BRWalletManager wm = BRWalletManager.getInstance();
 
 //                if (wm.isValidBitcoinPrivateKey(address) || wm.isValidBitcoinBIP38Key(address)) {
 ////                        wm.confirmSweep(getActivity(), address);
@@ -163,68 +149,68 @@ public class FragmentSend extends Fragment {
 //                    return;
 //                }
 
-                if (BRWalletManager.validateAddress(address)) {
-                    final String finalAddress = address;
-                    final Activity app = getActivity();
-                    if (app == null) {
-                        Log.e(TAG, "paste onClick: app is null");
-                        return;
-                    }
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (wm.addressContainedInWallet(finalAddress)) {
-                                app.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        BreadDialog.showCustomDialog(getActivity(), "Address contained", getResources().getString(R.string.address_already_in_your_wallet), "close", null, new BRDialogView.BROnClickListener() {
-                                            @Override
-                                            public void onClick(BRDialogView brDialogView) {
-                                                brDialogView.dismiss();
-                                            }
-                                        }, null, null, 0);
-                                        BRClipboardManager.putClipboard(getActivity(), "");
-                                    }
-                                });
-
-                            } else if (wm.addressIsUsed(finalAddress)) {
-                                app.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        BreadDialog.showCustomDialog(getActivity(), "Address used", getResources().getString(R.string.address_already_used), "Ignore", "Cancel", new BRDialogView.BROnClickListener() {
-                                            @Override
-                                            public void onClick(BRDialogView brDialogView) {
-                                                brDialogView.dismiss();
-                                                addressEdit.setText(finalAddress);
-                                            }
-                                        }, new BRDialogView.BROnClickListener() {
-                                            @Override
-                                            public void onClick(BRDialogView brDialogView) {
-                                                brDialogView.dismiss();
-                                            }
-                                        }, null, 0);
-                                    }
-                                });
-
-                            } else {
-                                app.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        addressEdit.setText(finalAddress);
-
-                                    }
-                                });
-                            }
-                        }
-                    }).start();
-
-                } else {
-                    showClipboardError();
-                }
-
+        if (BRWalletManager.validateAddress(address)) {
+            final String finalAddress = address;
+            final Activity app = getActivity();
+            if (app == null) {
+                Log.e(TAG, "paste onClick: app is null");
+                return false;
             }
-        });
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (wm.addressContainedInWallet(finalAddress)) {
+                        app.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                BreadDialog.showCustomDialog(getActivity(), "Address contained", getResources().getString(R.string.address_already_in_your_wallet), "close", null, new BRDialogView.BROnClickListener() {
+                                    @Override
+                                    public void onClick(BRDialogView brDialogView) {
+                                        brDialogView.dismiss();
+                                    }
+                                }, null, null, 0);
+                                BRClipboardManager.putClipboard(getActivity(), "");
+                            }
+                        });
 
+                    } else if (wm.addressIsUsed(finalAddress)) {
+                        app.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                BreadDialog.showCustomDialog(getActivity(), "Address used", getResources().getString(R.string.address_already_used), "Ignore", "Cancel", new BRDialogView.BROnClickListener() {
+                                    @Override
+                                    public void onClick(BRDialogView brDialogView) {
+                                        brDialogView.dismiss();
+                                        addressEdit.setText(finalAddress);
+                                    }
+                                }, new BRDialogView.BROnClickListener() {
+                                    @Override
+                                    public void onClick(BRDialogView brDialogView) {
+                                        brDialogView.dismiss();
+                                    }
+                                }, null, 0);
+                            }
+                        });
+
+                    } else {
+                        app.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                addressEdit.setText(finalAddress);
+
+                            }
+                        });
+                    }
+                }
+            }).start();
+            return true;
+        } else {
+            showClipboardError();
+            return false;
+        }
+    }
+
+    private void setListeners() {
         isoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -267,7 +253,7 @@ public class FragmentSend extends Fragment {
                 BigDecimal satoshiAmount = BRExchange.getSatoshisFromAmount(getActivity(), iso, bigAmount);
 //                long amount = BRExchange.getAmountFromSatoshis(getActivity(), iso, satoshiAmount).longValue();
 
-                if (address.isEmpty()) {
+                if (address.isEmpty() || !validateBitcoinUrl(address)) {
                     allFilled = false;
                     SpringAnimator.failShakeAnimation(getActivity(), addressEdit);
                 }
@@ -338,7 +324,7 @@ public class FragmentSend extends Fragment {
     }
 
     private void showClipboardError() {
-        BreadDialog.showCustomDialog(getActivity(), "Clipboard empty", getResources().getString(R.string.Send_invalidAddressTitle), "close", null, new BRDialogView.BROnClickListener() {
+        BreadDialog.showCustomDialog(getActivity(), "Invalid address", getResources().getString(R.string.Send_invalidAddressTitle), "close", null, new BRDialogView.BROnClickListener() {
             @Override
             public void onClick(BRDialogView brDialogView) {
                 brDialogView.dismiss();

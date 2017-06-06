@@ -6,7 +6,8 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.breadwallet.R;
-import com.breadwallet.presenter.activities.GenericInfoDialogActivity;
+import com.breadwallet.presenter.customviews.BRDialogView;
+import com.breadwallet.tools.animation.BreadDialog;
 import com.breadwallet.tools.security.BitcoinUrlHandler;
 import com.breadwallet.tools.security.PostAuthenticationProcessor;
 import com.breadwallet.tools.util.BRConstants;
@@ -101,7 +102,12 @@ public class BRActivity extends Activity {
                                 BitcoinUrlHandler.tryBitIdUri(BRActivity.this, result, null);
                             } else {
                                 Log.e(TAG, "onActivityResult: not bitcoin address NOR bitID");
-                                GenericInfoDialogActivity.launch(BRActivity.this, R.string.InvalidAddressMsg);
+                                BreadDialog.showCustomDialog(BRActivity.this, getString(R.string.InvalidAddressMsg), getResources().getString(R.string.Send_invalidAddressTitle), "close", null, new BRDialogView.BROnClickListener() {
+                                    @Override
+                                    public void onClick(BRDialogView brDialogView) {
+                                        brDialogView.dismiss();
+                                    }
+                                }, null, null, 0);
                             }
                         }
                     }, 500);

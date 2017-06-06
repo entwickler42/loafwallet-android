@@ -97,7 +97,7 @@
     <!-- Messaging unavailable alert title -->
     <string name="ErrorMessages.messagingUnavailableTitle">Messaging unavailable</string>
     <!-- Invalid address message -->
-    <string name="InvalidAddressMsg">Invalid Litecoin address</string>
+    <string name="InvalidAddressMsg">Invalid address</string>
     <!-- Close app button -->
     <string name="JailbreakWarnings.close">Close</string>
     <!-- Ignore jailbreak warning button -->
@@ -251,7 +251,7 @@
     <!-- Description for sending money label -->
     <string name="Send.descriptionLabel">What\'s this for?</string>
     <!-- Invalid address alert message -->
-    <string name="Send.invalidAddressTitle">Your clipboard does not have a valid litecoin address.</string>
+    <string name="Send.invalidAddressTitle">Oops... looks like an invalid litecoin address...</string>
     <!-- Send modal title -->
     <string name="Send.modalTitle">Send Money</string>
     <!-- Paste button label -->
