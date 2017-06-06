@@ -96,6 +96,8 @@
     <string name="ErrorMessages.messagingUnavailableMessage">This device isn\'t configured to send messages.</string>
     <!-- Messaging unavailable alert title -->
     <string name="ErrorMessages.messagingUnavailableTitle">Messaging unavailable</string>
+    <!-- Invalid address message -->
+    <string name="InvalidAddressMsg">Invalid Litecoin address</string>
     <!-- Close app button -->
     <string name="JailbreakWarnings.close">Close</string>
     <!-- Ignore jailbreak warning button -->
@@ -148,6 +150,8 @@
     <string name="MenuViewController.modalTitle">Menu</string>
     <!-- button label -->
     <string name="MenuViewController.recoverButton">Recover Wallet</string>
+    <!-- OK -->
+    <string name="OK">OK</string>
     <!-- Set Pin screen body -->
     <string name="PinCreationView.body">Write down your PIN and store it in a place you can access even if your phone is broken or lost.</string>
     <!-- Set Pin screen caption -->
