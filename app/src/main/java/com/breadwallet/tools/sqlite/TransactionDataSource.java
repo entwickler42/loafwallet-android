@@ -71,7 +71,8 @@ public class TransactionDataSource {
 
     public static TransactionDataSource getInstance(Context context) {
         if (instance == null) {
-            instance = new TransactionDataSource(context);
+            // Use the application context to ensure that we don't leak an Activity's context
+            instance = new TransactionDataSource(context.getApplicationContext());
         }
         return instance;
     }

@@ -57,7 +57,8 @@ public class CurrencyDataSource {
 
     public static CurrencyDataSource getInstance(Context context) {
         if (instance == null) {
-            instance = new CurrencyDataSource(context);
+            // Use the application context to ensure that we don't leak an Activity's context
+            instance = new CurrencyDataSource(context.getApplicationContext());
         }
         return instance;
     }

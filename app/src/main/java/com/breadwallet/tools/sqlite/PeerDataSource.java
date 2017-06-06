@@ -56,7 +56,8 @@ public class PeerDataSource {
 
     public static PeerDataSource getInstance(Context context) {
         if (instance == null) {
-            instance = new PeerDataSource(context);
+            // Use the application context to ensure that we don't leak an Activity's context
+            instance = new PeerDataSource(context.getApplicationContext());
         }
         return instance;
     }

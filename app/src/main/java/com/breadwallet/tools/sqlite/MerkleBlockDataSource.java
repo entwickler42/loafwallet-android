@@ -56,7 +56,8 @@ public class MerkleBlockDataSource {
 
     public static MerkleBlockDataSource getInstance(Context context) {
         if (instance == null) {
-            instance = new MerkleBlockDataSource(context);
+            // Use the application context to ensure that we don't leak an Activity's context
+            instance = new MerkleBlockDataSource(context.getApplicationContext());
         }
         return instance;
     }
