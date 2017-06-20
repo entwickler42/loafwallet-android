@@ -53,7 +53,7 @@ public class DefaultCurrencyActivity extends BRActivity {
         CurrencyEntity entity = CurrencyDataSource.getInstance(this).getCurrencyByIso(iso);
         if (entity != null) {
             String finalExchangeRate = BRCurrency.getFormattedCurrencyString(DefaultCurrencyActivity.this, SharedPreferencesManager.getIso(this), new BigDecimal(entity.rate));
-            exchangeText.setText(finalExchangeRate + " = 1BTC");
+            exchangeText.setText(finalExchangeRate + " = 1LTC");
         }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -70,7 +70,7 @@ public class DefaultCurrencyActivity extends BRActivity {
                 SharedPreferencesManager.putCurrencyListPosition(DefaultCurrencyActivity.this, position);
 //                SharedPreferencesManager.putRate(app, rate);
                 String finalExchangeRate = BRCurrency.getFormattedCurrencyString(DefaultCurrencyActivity.this, ISO, new BigDecimal(rate));
-                exchangeText.setText(finalExchangeRate + " = 1BTC");
+                exchangeText.setText(finalExchangeRate + " = 1LTC");
 //                MiddleViewAdapter.resetMiddleView(app, finalExchangeRate);
                 adapter.notifyDataSetChanged();
 
