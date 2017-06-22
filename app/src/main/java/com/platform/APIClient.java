@@ -101,8 +101,8 @@ public class APIClient {
     private static APIClient ourInstance;
 
     public static final String BUNDLES = "bundles";
-    public static String BREAD_BUY = "bread-buy";
-    public static String BREAD_SUPPORT = "bread-support";
+    public static String BREAD_BUY = "loaf-buy";
+    public static String BREAD_SUPPORT = "loaf-support";
 
     public static final String BUNDLES_FOLDER = String.format("/%s", BUNDLES);
 
@@ -149,8 +149,8 @@ public class APIClient {
     private APIClient(Context context) {
         ctx = context;
         if (0 != (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE)) {
-            BREAD_BUY = "bread-buy-staging";
-            BREAD_SUPPORT = "bread-support-staging";
+            BREAD_BUY = "loaf-buy-staging";
+            BREAD_SUPPORT = "loaf-support-staging";
         }
     }
 
@@ -308,7 +308,7 @@ public class APIClient {
                 Log.e(TAG, "sendRequest: failed to retrieve token");
                 return null;
             }
-            String authValue = "bread " + token + ":" + signedRequest;
+            String authValue = "loaf " + token + ":" + signedRequest;
 //            Log.e(TAG, "sendRequest: authValue: " + authValue);
             modifiedRequest = request.newBuilder();
 
@@ -594,7 +594,7 @@ public class APIClient {
 
     public boolean isBreadChallenge(Response resp) {
         String challenge = resp.header("www-authenticate");
-        return challenge != null && challenge.startsWith("bread");
+        return challenge != null && challenge.startsWith("loaf");
     }
 
     public boolean isFeatureEnabled(String feature) {

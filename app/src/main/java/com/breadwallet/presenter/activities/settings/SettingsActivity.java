@@ -195,7 +195,7 @@ public class SettingsActivity extends BRActivity {
             }
         }, false));
 
-        items.add(new BRSettingsItem("Bread", "", null, true));
+        items.add(new BRSettingsItem("Loaf", "", null, true));
 
         items.add(new BRSettingsItem("Share Anonymous Data", "", new View.OnClickListener() {
             @Override
