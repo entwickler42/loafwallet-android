@@ -67,7 +67,8 @@ public class HTTPServer {
     private static Server server;
     public static final int PORT = 31120;
     public static final String URL_EA = "http://localhost:" + PORT + "/ea";
-    public static final String URL_BUY = "http://localhost:" + PORT + "/buy";
+    public static final String BUY_LITECOIN_ADDRESS = BRWalletManager.getReceiveAddress();
+    public static final String URL_BUY = "https://buy.loafwallet.org/?address=" + BUY_LITECOIN_ADDRESS;
     public static final String URL_SUPPORT = "http://localhost:" + PORT + "/support";
     public static ServerMode mode;
 
